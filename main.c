@@ -3,6 +3,9 @@
 #include <math.h>
 
 #include "common.h"
+#include "id.h"
+#include "verify.h"
+#include "solve.h"
 
 #define INPUT_SIZE 16
 

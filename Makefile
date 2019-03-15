@@ -1,6 +1,6 @@
 CFLAGS=-Og -g -Wall -Wpedantic -Werror -march=native -I./include
 CC=gcc
-OBJS=main.o conditions.o
+OBJS=main.o id.o verify.o solve.o
 
 notarget: solver
 
