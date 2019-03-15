@@ -30,9 +30,9 @@ int main(void) {
         printf("%s: ", opts_str[i]);
         fgets(input, INPUT_SIZE, stdin);
         if (sscanf(input, " %lf", vals[i]) > 0) {
+            // TODO radians support
             opts_mask |= (int)pow(2, i);
         }
-        printf("\n");
     }
 
     printf("mask: %x\nA: %lf, a: %lf, B: %lf, b: %lf, C: %lf, c: %lf\n", opts_mask, *vals[A], *vals[a], *vals[B], *vals[b], *vals[C], *vals[c]);
