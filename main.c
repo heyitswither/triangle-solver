@@ -2,13 +2,9 @@
 #include <stdlib.h>
 #include <math.h>
 
-#define IN_MASK(o) (MASK & (int)pow(2, o))
+#include "common.h"
 
 #define INPUT_SIZE 16
-#define NUM_OPTS 6
-#define OPTS_STR "A", "a", "B", "b", "C", "c"
-
-enum opts{A, a, B, b, C, c};
 
 int main(void) {
     // TODO: maybe use a struct for this so I don't do weird stuff with NULL
