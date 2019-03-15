@@ -9,7 +9,7 @@ int basic_right_solve(double **opts, char mask) {
     int missing = log2(MASK_ANGLES ^ 0b111);
     const char opts_str[NUM_OPTS] = {OPTS_STR};
     // TODO: only print debug messages with -DDEBUG
-    printf("log: miss: %c, pop: %d\n", opts_str[missing], __builtin_popcount(MASK_ANGLES));
+    LOG("miss: %c, pop: %d\n", opts_str[missing], __builtin_popcount(MASK_ANGLES));
     if (__builtin_popcount(MASK_ANGLES) == 2) {
         // find which angle is missing, then subtract the others from 180
         // TODO: maybe don't repeat code

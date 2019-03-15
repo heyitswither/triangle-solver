@@ -30,7 +30,7 @@ int main(void) {
         vals[i] = malloc(sizeof(double));
         *vals[i] = 0;
         if (!vals[i]) {
-            fprintf(stderr, "allocation error\n");
+            LOG("%s\n", "allocation error");
             return EXIT_FAILURE;
         }
     }
@@ -44,9 +44,8 @@ int main(void) {
         }
     }
 
-    printf("bits set: %d, angles: %d, sides: %d\n", __builtin_popcount(opts_mask), __builtin_popcount(MASK_ANGLES), __builtin_popcount(MASK_SIDES)); // bits set must be >=3
-    printf("mask: %x\nA: %lf, B: %lf, C: %lf, a: %lf, b: %lf, c: %lf\n", opts_mask, *vals[A], *vals[B], *vals[C], *vals[a], *vals[b], *vals[c]);
-    printf("A: %s, B: %s, C: %s, a: %s, b: %s, c: %s\n", IN_MASK(A) ? "yeek":"nope", IN_MASK(B) ? "yeek":"nope", IN_MASK(C) ? "yeek":"nope", IN_MASK(a) ? "yeek":"nope", IN_MASK(b) ? "yeek":"nope", IN_MASK(c) ? "yeek":"nope");
+    LOG("bits set: %d, angles: %d, sides: %d\n", __builtin_popcount(opts_mask), __builtin_popcount(MASK_ANGLES), __builtin_popcount(MASK_SIDES)); // bits set must be >=3
+    LOG("mask: %x\n", opts_mask);
 
     // TODO: solve any single missing angle
 
@@ -54,13 +53,13 @@ int main(void) {
         if (basic_right_verify(vals, opts_mask)) {
             basic_right_solve(vals, opts_mask);
         } else {
-            printf("no verify\n");
+            LOG("%s\n", "no verify");
         }
     } else {
-        printf("no id\n");
+        LOG("%s\n", "no id");
     }
 
-    printf("solved\nA: %lf, B: %lf, C: %lf, a: %lf, b: %lf, c: %lf\n", *vals[A], *vals[B], *vals[C], *vals[a], *vals[b], *vals[c]);
+    printf("A: %lf\nB: %lf\nC: %lf\na: %lf\nb: %lf\nc: %lf\n", *vals[A], *vals[B], *vals[C], *vals[a], *vals[b], *vals[c]);
 
     return EXIT_SUCCESS;
 }
