@@ -44,6 +44,11 @@ int main(void) {
         }
     }
 
+    if (__builtin_popcount(opts_mask) < 3) {
+        fprintf(stderr, "At least 3 values needed, only %d given\n", __builtin_popcount(opts_mask));
+        return EXIT_FAILURE;
+    }
+
     LOG("bits set: %d, angles: %d, sides: %d\n", __builtin_popcount(opts_mask), __builtin_popcount(MASK_ANGLES), __builtin_popcount(MASK_SIDES)); // bits set must be >=3
     LOG("mask: %x\n", opts_mask);
 
