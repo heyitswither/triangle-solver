@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-#define IN_MASK(m, o) (m & (int)pow(2, o))
+#define IN_MASK(o) (MASK & (int)pow(2, o))
 
 #define INPUT_SIZE 16
 #define NUM_OPTS 6
@@ -12,10 +12,13 @@ enum opts{A, a, B, b, C, c};
 
 int main(void) {
     // TODO: maybe use a struct for this so I don't do weird stuff with NULL
+    //       or maybe not, mask works just fine
     double *vals[NUM_OPTS];
     const char *opts_str[NUM_OPTS] = {OPTS_STR};
-    int opts_mask = 0;
+    char opts_mask = 0;
     char input[INPUT_SIZE];
+
+#define MASK opts_mask
 
     for (int i = 0; i < NUM_OPTS; i++) {
         vals[i] = malloc(sizeof(double));
@@ -36,7 +39,7 @@ int main(void) {
     }
 
     printf("mask: %x\nA: %lf, a: %lf, B: %lf, b: %lf, C: %lf, c: %lf\n", opts_mask, *vals[A], *vals[a], *vals[B], *vals[b], *vals[C], *vals[c]);
-    printf("A: %s, a: %s, B: %s, b: %s, C: %s, c: %s\n", IN_MASK(opts_mask, A) ? "yeek":"nope", IN_MASK(opts_mask, a) ? "yeek":"nope", IN_MASK(opts_mask, B) ? "yeek":"nope", IN_MASK(opts_mask, b) ? "yeek":"nope", IN_MASK(opts_mask, C) ? "yeek":"nope", IN_MASK(opts_mask, c) ? "yeek":"nope");
+    printf("A: %s, a: %s, B: %s, b: %s, C: %s, c: %s\n", IN_MASK(A) ? "yeek":"nope", IN_MASK(a) ? "yeek":"nope", IN_MASK(B) ? "yeek":"nope", IN_MASK(b) ? "yeek":"nope", IN_MASK(C) ? "yeek":"nope", IN_MASK(c) ? "yeek":"nope");
 
     return EXIT_SUCCESS;
 }
