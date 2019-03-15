@@ -3,6 +3,6 @@
 
 #include "common.h"
 
-int basic_right_solve(double (*)[NUM_OPTS]);
+int basic_right_solve(double **, char);
 
 #endif
