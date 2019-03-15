@@ -5,21 +5,15 @@
 
 #include "common.h"
 
-int basic_right_solve(double **opts, char mask) {
+static const char opts_str[NUM_OPTS] = {OPTS_STR};
+
+int single_missing_angle(double **opts, char mask) {
     int missing = log2(MASK_ANGLES ^ 0b111);
-    const char opts_str[NUM_OPTS] = {OPTS_STR};
-    // TODO: only print debug messages with -DDEBUG
-    LOG("miss: %c, pop: %d\n", opts_str[missing], __builtin_popcount(MASK_ANGLES));
-    if (__builtin_popcount(MASK_ANGLES) == 2) {
-        // find which angle is missing, then subtract the others from 180
-        // TODO: maybe don't repeat code
-        if (missing == A) {
-            *opts[A] = 180 - *opts[B] - *opts[C];
-        } else if (missing == B) {
-            *opts[B] = 180 - *opts[A] - *opts[C];
-        } else if (missing == C) {
-            *opts[C] = 180 - *opts[A] - *opts[B];
-        }
-    }
+    LOG("missing: %c\n", opts_str[missing]);
+    *opts[missing] = 180 - *opts[(missing == A) ? B : A] - *opts[(missing == C) ? B : C];
+    return TRUE;
+}
+
+int basic_right_solve(double **opts, char mask) {
     return TRUE;
 }

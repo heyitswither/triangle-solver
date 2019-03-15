@@ -47,16 +47,14 @@ int main(void) {
     LOG("bits set: %d, angles: %d, sides: %d\n", __builtin_popcount(opts_mask), __builtin_popcount(MASK_ANGLES), __builtin_popcount(MASK_SIDES)); // bits set must be >=3
     LOG("mask: %x\n", opts_mask);
 
-    // TODO: solve any single missing angle
+    if (__builtin_popcount(MASK_ANGLES) == 2) {
+        single_missing_angle(vals, opts_mask);
+    }
 
     if (basic_right_id(vals, opts_mask)) {
         if (basic_right_verify(vals, opts_mask)) {
             basic_right_solve(vals, opts_mask);
-        } else {
-            LOG("%s\n", "no verify");
         }
-    } else {
-        LOG("%s\n", "no id");
     }
 
     printf("A: %lf\nB: %lf\nC: %lf\na: %lf\nb: %lf\nc: %lf\n", *vals[A], *vals[B], *vals[C], *vals[a], *vals[b], *vals[c]);
