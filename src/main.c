@@ -53,7 +53,6 @@ int main(int argc, char *argv[]) {
             strlcpy(input, argv[i + 1], INPUT_SIZE);
         }
         if (sscanf(input, " %lf", vals[i]) > 0) {
-            // TODO radians support
             opts_mask |= (int)pow(2, i);
         }
     }
