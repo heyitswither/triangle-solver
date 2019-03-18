@@ -17,7 +17,8 @@
 #define MASK_SIDES (MASK & 0b111000)
 
 #define NUM_OPTS 6
-#define OPTS_STR 'A', 'B', 'C', 'a', 'b', 'c'
+#define OPTS_STR "ABCabc"
+#define OPTS_STR_PRINTABLE "A B C a b c"
 
 #define TRUE 1
 #define FALSE 0

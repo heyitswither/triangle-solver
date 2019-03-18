@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <strings.h>
 
 #include "common.h"
 #include "id.h"
@@ -15,29 +16,42 @@
 
 // id, verify, solve, verify
 
-int main(void) {
+int main(int argc, char *argv[]) {
     // TODO: maybe use a struct for this so I don't do weird stuff with NULL
     //       or maybe not, mask works just fine
     double *vals[NUM_OPTS];
-    const char opts_str[NUM_OPTS] = {OPTS_STR};
+    const char opts_str[NUM_OPTS] = OPTS_STR;
     char opts_mask = 0;
     char input[INPUT_SIZE];
+    int use_stdin = (argc != 7);
+
+    if (((argc > 1) && ((!strcmp(argv[1], "-h") || !strcmp(argv[1], "--help")))) || (argc > 7)) {
+        printf("usage: %s [%s]\n"
+               "\tif no args are given, take input interactively.\n"
+               "\tuse an x to denote a missing value\n",
+               argv[0], OPTS_STR_PRINTABLE);
+        return EXIT_FAILURE;
+    }
 
 #undef MASK
 #define MASK opts_mask
 
     for (int i = 0; i < NUM_OPTS; i++) {
         vals[i] = malloc(sizeof(double));
-        *vals[i] = 0;
         if (!vals[i]) {
             LOG("%s\n", "allocation error");
             return EXIT_FAILURE;
         }
+        *vals[i] = 0;
     }
 
     for (int i = 0; i < NUM_OPTS; i++) {
-        printf("%c: ", opts_str[i]);
-        fgets(input, INPUT_SIZE, stdin);
+        if (use_stdin) {
+            fprintf(stderr, "%c: ", opts_str[i]);
+            fgets(input, INPUT_SIZE, stdin);
+        } else {
+            strlcpy(input, argv[i + 1], INPUT_SIZE);
+        }
         if (sscanf(input, " %lf", vals[i]) > 0) {
             // TODO radians support
             opts_mask |= (int)pow(2, i);
@@ -49,7 +63,7 @@ int main(void) {
         return EXIT_FAILURE;
     }
 
-    LOG("bits set: %d, angles: %d, sides: %d\n", __builtin_popcount(opts_mask), __builtin_popcount(MASK_ANGLES), __builtin_popcount(MASK_SIDES)); // bits set must be >=3
+    LOG("bits set: %d, angles: %d, sides: %d\n", __builtin_popcount(opts_mask), __builtin_popcount(MASK_ANGLES), __builtin_popcount(MASK_SIDES));
     LOG("mask: %x\n", opts_mask);
 
     if (__builtin_popcount(MASK_ANGLES) == 2) {
