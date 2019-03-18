@@ -8,8 +8,13 @@
 #endif
 
 #define LOG(fmt, ...) \
-        do { if (_DEBUG) fprintf(stderr, "%s:%d:%s(): " fmt, __FILE__, \
-                               __LINE__, __func__, __VA_ARGS__); } while (0)
+            do { if (_DEBUG) fprintf(stderr, "%s:%d:%s(): " fmt, __FILE__, \
+                                     __LINE__, __func__, __VA_ARGS__); \
+            } while (0)
+
+#define ERROR(fmt, ...) \
+              do { fprintf(stderr, "%s:%d:%s(): " fmt, __FILE__, \
+                           __LINE__, __func__, __VA_ARGS__); } while (0)
 
 #define MASK mask
 #define IN_MASK(o) (MASK & (int)pow(2, o))

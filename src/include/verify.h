@@ -4,5 +4,6 @@
 #include "common.h"
 
 int basic_right_verify(double **, char);
+int sss_verify(double **, char);
 
 #endif

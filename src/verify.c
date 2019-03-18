@@ -9,3 +9,7 @@ int basic_right_verify(double **opts, char mask) {
         return TRUE;
     }
 }
+
+int sss_verify(double **opts, char mask) {
+    return ((__builtin_popcount(MASK_SIDES) == 3) && (__builtin_popcount(MASK_ANGLES) == 0) && ((*opts[A] != 90) || (*opts[B] != 90) || (*opts[C] != 90)));
+}

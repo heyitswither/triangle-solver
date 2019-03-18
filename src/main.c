@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < NUM_OPTS; i++) {
         vals[i] = malloc(sizeof(double));
         if (!vals[i]) {
-            LOG("%s\n", "allocation error");
+            ERROR("%s\n", "allocation error");
             return EXIT_FAILURE;
         }
         *vals[i] = 0;
@@ -69,6 +69,11 @@ int main(int argc, char *argv[]) {
         single_missing_angle(vals, opts_mask);
     }
 
+    if (sss_verify(vals, opts_mask)) {
+        fprintf(stderr, "SSS case found, unable to solve\n");
+        return EXIT_FAILURE;
+    }
+
     if (basic_right_id(vals, opts_mask)) {
         if (basic_right_verify(vals, opts_mask)) {
             basic_right_solve(vals, opts_mask);
@@ -76,6 +81,10 @@ int main(int argc, char *argv[]) {
     }
 
     printf("A: %lf\nB: %lf\nC: %lf\na: %lf\nb: %lf\nc: %lf\n", *vals[A], *vals[B], *vals[C], *vals[a], *vals[b], *vals[c]);
+
+    for (int i = 0; i < NUM_OPTS; i++) {
+        free(vals[i]);
+    }
 
     return EXIT_SUCCESS;
 }
