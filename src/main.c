@@ -65,11 +65,13 @@ int main(int argc, char *argv[]) {
     LOG("bits set: %d, angles: %d, sides: %d\n", __builtin_popcount(opts_mask), __builtin_popcount(MASK_ANGLES), __builtin_popcount(MASK_SIDES));
     LOG("mask: %x\n", opts_mask);
 
+    // trivial, but maybe add id and verify
     if (__builtin_popcount(MASK_ANGLES) == 2) {
-        single_missing_angle(vals, opts_mask);
+        single_missing_angle_solve(vals, opts_mask);
     }
 
-    if (sss_verify(vals, opts_mask)) {
+    // trivial, but maybe add id and solve
+    if (sss_id(vals, opts_mask)) {
         fprintf(stderr, "SSS case found, unable to solve\n");
         return EXIT_FAILURE;
     }
