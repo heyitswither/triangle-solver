@@ -1,6 +1,5 @@
 // solve.c: actually solve the triangle
 
-#include <math.h>
 #include <stdio.h>
 
 #include "common.h"
@@ -13,7 +12,7 @@ int basic_right_solve(double **opts, char mask) {
 }
 
 int single_missing_angle_solve(double **opts, char mask) {
-    int missing = log2(MASK_ANGLES ^ __extension__ 0b111);
+    int missing = log2(MASK_ANGLES ^ 0b111);
     LOG("missing: %c\n", opts_str[missing]);
     *opts[missing] = 180 - *opts[(missing == A) ? B : A] - *opts[(missing == C) ? B : C];
     return SUCCESS;
@@ -22,4 +21,11 @@ int single_missing_angle_solve(double **opts, char mask) {
 int sss_solve(double **opts, char mask) {
     fprintf(stderr, "SSS case found, unable to solve\n");
     return EINVAL;
+}
+
+int right_ss_solve(double **opts, char mask) {
+    double m1 = MISSING1;
+    double m2 = MISSING2;
+
+    return SUCCESS;
 }

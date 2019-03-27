@@ -1,4 +1,4 @@
-CFLAGS=-Og -g -Wall -std=gnu11 -Werror -march=native -I./include -DDEBUG -pedantic
+CFLAGS=-Og -g -Wall -std=gnu11 -Werror -march=native -I./include -DDEBUG
 CC=gcc
 OBJS=main.o id.o verify.o solve.o
 

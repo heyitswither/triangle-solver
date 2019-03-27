@@ -4,7 +4,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 #include <strings.h>
 
 #include "common.h"
@@ -71,13 +70,13 @@ int main(int argc, char *argv[]) {
     }
 
     // trivial, but maybe add id and solve
-    if (sss_id(vals, opts_mask)) {
+    if (sss_id(vals, opts_mask) == SUCCESS) {
         fprintf(stderr, "SSS case found, unable to solve\n");
         return EXIT_FAILURE;
     }
 
-    if (basic_right_id(vals, opts_mask)) {
-        if (basic_right_verify(vals, opts_mask)) {
+    if (basic_right_id(vals, opts_mask) == SUCCESS) {
+        if (basic_right_verify(vals, opts_mask) == SUCCESS) {
             basic_right_solve(vals, opts_mask);
         }
     }
